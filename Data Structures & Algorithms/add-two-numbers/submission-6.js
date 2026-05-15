@@ -1,0 +1,44 @@
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     constructor(val = 0, next = null) {
+ *         this.val = val;
+ *         this.next = next;
+ *     }
+ * }
+ */
+
+class Solution {
+    /**
+     * @param {ListNode} l1
+     * @param {ListNode} l2
+     * @return {ListNode}
+     */
+    addTwoNumbers(l1, l2) {
+        let dummyNode = new ListNode();
+        let curr = dummyNode;
+        let carry = 0
+
+        while(l1 || l2){
+            let l1Val = l1?.val || 0;
+            let l2Val = l2?.val || 0;
+
+            let sum = l1Val + l2Val + carry;
+            let nodeVal = Math.floor(sum%10);
+            carry = Math.floor(sum / 10);
+
+            let node = new ListNode(nodeVal);
+            curr.next = node;
+            curr = curr.next;
+            if (l1) l1 = l1.next;
+            if (l2) l2 = l2.next;
+        }
+
+        if(carry){
+            let node = new ListNode(carry);
+            curr.next = node
+        }
+
+        return dummyNode.next
+    }
+}
